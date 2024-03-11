@@ -1,0 +1,159 @@
+---
+title: "Mid Project"
+format: html
+editor: visual
+echo: False
+---
+
+***Group Number: 26***
+
+The data that I have used for my redesign is from the National Highway Traffic Safety Administration (NHTSA). Which was established within the Department of Transportation by the Highway Safety Act of 1970 to help reduce the mounting number of deaths, injuries, and economic losses resulting from motor vehicle crashes on the nation's highways.
+
+The data set used in these designs is from the Fatality Analysis Reporting System. FARS is a nationwide census providing NHTSA, Congress, and the American public with yearly data regarding fatal injuries suffered in motor vehicle traffic crashes \[1\]. FARS includes data on all fatal traffic crashes within the 50 states and Washington, DC. For the data to be included, FARS in a crash must involve a motor vehicle traveling in a traffic way customarily open to the public and must result in the death of the occupant of the vehicle or a non occupant within 30 days of the crash.
+
+For this project, I have considered the reports for the DMV Area (Washington, DC, Maryland, Virginia, and West Virginia) for the years 2021, 2018, and 1988. The data used reports the number of persons who died as a result of fatal traffic accidents, segmented by the sex of the victim, i.e., male, female, and unsupported (when gender cannot be identified).
+
+## Bad Graph
+
+![](images/bad%20design.jpg){fig-align="center"}
+
+Here are the reasons why we consider this to be a bad graph:
+
+-   When you look at the chart, your eyes look straight at the colors used in it. It looks appealing, but we don't know what these colors represent in the chart.
+
+-   The main reason we use graphs is to let the data do the talking. Graphs of data should tell us about the values involved and help us make accurate comparisons between these values. Which I find missing in this case.
+
+-   Determining the values of each slice represented is very hard.
+
+-   Identifying even the smallest of the values in the graph is tricky.
+
+-   Differentiating between the regions (the circle) is next to impossible here.
+
+## Redesign 1
+
+*Plot 1:*
+
+```{r}
+#| warning: false
+
+library(tidyr)
+
+library(plotly)
+
+FARS=read.csv("C:/Users/hp/Desktop/R/proj script/FARS.csv")
+
+(plot1 = plot_ly(FARS, x = ~State, y = ~Male2021, type = 'bar', name = 'Male', 
+                 marker = list(color = 'rgb(49,130,189)')) %>% 
+    add_trace(y = ~Female2021, name = 'Female', 
+              marker = list(color = 'rgb(204,204,204)')) %>%
+    add_trace(y = ~Unsupported2021, name = 'Unsupported', 
+              marker = list(color = 'rgb(300,000,01)')) %>%
+    layout(xaxis = list(title = "DMV States", tickangle = -45),
+           yaxis = list(title = "Number of people killed"),
+           margin = list(b = 100),
+           barmode = 'group',
+           title="Persons killed in 2021"))
+```
+
+*Plot 2:*
+
+```{r}
+(plot2 = plot_ly(FARS, x = ~State, y = ~Male2018, type = 'bar', name = 'Male', 
+                 marker = list(color = 'rgb(49,130,189)')) %>% 
+    add_trace(y = ~Female2018, name = 'Female', 
+              marker = list(color = 'rgb(204,204,204)')) %>%
+    add_trace(y = ~Unsupported2018, name = 'Unsupported', 
+              marker = list(color = 'rgb(300,00,01)')) %>%
+    layout(xaxis = list(title = "DMV States", tickangle = -45),
+           yaxis = list(title = "Number of people killed"),
+           margin = list(b = 100),
+           barmode = 'group',
+           title="Persons killed in 2018"))
+```
+
+*Plot 3:*
+
+```{r}
+(plot3 = plot_ly(FARS, x = ~State, y = ~Male1988, type = 'bar', name = 'Male', 
+                 marker = list(color = 'rgb(49,130,189)')) %>% 
+    add_trace(y = ~Female1988, name = 'Female', 
+              marker = list(color = 'rgb(204,204,204)')) %>%
+    add_trace(y = ~Unsupported, name = 'Unsupported', 
+              marker = list(color = 'rgb(300,00,01)')) %>%
+    layout(xaxis = list(title = "DMV States", tickangle = -45),
+           yaxis = list(title = "Number of people killed"),
+           margin = list(b = 100),
+           barmode = 'group',
+           title="Persons killed in 1988"))
+```
+
+***Why Redesign 1 is better than the Bad Graph?***
+
+Redesing 1 with the three plots included in it is a better way of representing the data. Here, the States (x axis) can be compared against each other on the basis of gender or on the basis of specific years. Each gender has its own segregation against the count on the Y axis. The colors uniquely identify each gender, and it also has a small color characteristic box displayed on the right side of the graph. Apart from each bar being plotted exactly at the same level of its count, they are also interactive. When we hover at the top edge of the edge it shows the count that it is being represented against.
+
+## Redesign 2
+
+*Plot 4:*
+
+```{r}
+plot4=plot_ly(FARS, x = ~State, type = 'bar', name = 'Male',
+                y = ~Male2021, marker = list(color = 'blue')) %>%
+  add_trace(y = ~Female2021, name = 'Female', marker = list(color = 'pink')) %>%
+  add_trace(y = ~Unsupported2021, name = 'Unsupported', marker = list(color = 'Orange')) %>%
+  layout(title = "Persons Killed in 2021",
+         xaxis = list(title = "DMV States"),
+         yaxis = list(title = "Number of people killed"),
+         barmode = 'stack')
+
+
+plot4
+```
+
+*Plot 5:*
+
+```{r}
+plot5=plot_ly(FARS, x = ~State, type = 'bar', name = 'Male',
+              y = ~Male2018, marker = list(color = 'blue')) %>%
+  add_trace(y = ~Female2018, name = 'Female', marker = list(color = 'pink')) %>%
+  add_trace(y = ~Unsupported2018, name = 'Unsupported', marker = list(color = 'Orange')) %>%
+  layout(title = "Persons Killed in 2018",
+         xaxis = list(title = "DMV States"),
+         yaxis = list(title = "Number of people killed"),
+         barmode = 'stack')
+
+
+plot5
+```
+
+*Plot 6:*
+
+```{r}
+plot6=plot_ly(FARS, x = ~State, type = 'bar', name = 'Male',
+              y = ~Male1988, marker = list(color = 'blue')) %>%
+  add_trace(y = ~Female1988, name = 'Female', marker = list(color = 'pink')) %>%
+  add_trace(y = ~Unsupported, name = 'Unsupported', marker = list(color = 'Orange')) %>%
+  layout(title = "Persons Killed in 1988",
+         xaxis = list(title = "DMV States"),
+         yaxis = list(title = "Number of people killed"),
+         barmode = 'stack')
+
+
+plot6
+```
+
+***Why Redesign 2 is better than the Bad Graph?***
+
+The second type of visualization used for redesigning the Bad Graph is a stacked bar.The states are represented on the x-axis and the count on the y-axis. Each gender has been stacked, giving us a clear understanding of the number of people being represented by that specific gender. Let us look at one of the scenarios here. In the year 1988, Maryland had a count of male 562, female 219, and unsupported 0. First, the male count has been plotted, i.e., till 562, then the female count has been plotted for 219, which ends at 781 (562 + 219). The unsupported will be plotted from the end of Female. This makes it very easy to compare the values against each category. It also helps in understanding the trend.
+
+```         
+```
+
+## Video Presentation:
+
+{{< video https://youtu.be/5RcHwwdxT38 >}}
+
+## Citation
+
+National Highway Traffic Safety Administration. (2023, May 16). Fatal traffic accidents: persons killed: Persons killed, by genderMale, Female, Not Supported, 1988 - 2021. \[Data set\]. Sage Data. Sage Publishing Ltd. <https://doi.org/10.6068/DP18E0AB5BDAB15>
+
+\[1\]: NHTSA. (2016, November 14). NHTSA. https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars

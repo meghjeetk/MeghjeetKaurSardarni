@@ -1,0 +1,36 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Meghjeet Kaur"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - Project.qmd
+      - codes.qmd
+      
+      
+    right:
+      - icon: github
+        href: https://github.com/
+        aria-label: GitHub
+      - icon: linkedin
+        href: https://linkedin.com/in/meghjeet-kaur-8b8b33166
+        aria-label: linkedin 
+      - icon: twitter
+        href: https://twitter.com/
+        aria-label: twitter
+        
+format:
+  html:
+    theme: 
+      light: flatly
+      dark: darkly
+    
+    css: styles.css
+    toc: true
+
+editor: visual
+

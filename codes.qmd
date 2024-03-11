@@ -1,0 +1,61 @@
+---
+title: "Codes"
+format: html
+editor: visual
+---
+
+## Create a dataset
+
+FARS=data.frame( State=c("Virginia","Maryland","West Virginia","Washington DC"), Male2021=c(699,407,204,33), Female2021=c(282,153,76,8), Unsupported2021=c(22,1,0,0), Male2018=c(593,363,208,24), Female2018=c(226,138,86,7), Unsupported2018=c(1,0,0,0), Male1988=c(776,562,322,45), Female1988=c(296,219,138,16), Unsupported=c(0,0,0,0))
+
+## Specify the file path where you want to save the CSV file
+
+file_path="FARS.csv"
+
+## Write the data frame to a CSV file
+
+write.csv(FARS, file = file_path, row.names = FALSE)
+
+## Read the CSV file
+
+FARS=read.csv("C:/Users/hp/Desktop/R/proj script/FARS.csv")
+
+## Install Packages
+
+install.packages("tidyr")
+
+install.packages("plotly")
+
+library(tidyr)
+
+library(plotly)
+
+## Redesigning the Plots
+
+### Redesign 1
+
+(plot1 = plot_ly(FARS, x = \~State, y = \~Male2021, type = 'bar', name = 'Male', marker = list(color = 'rgb(49,130,189)')) %\>% add_trace(y = \~Female2021, name = 'Female', marker = list(color = 'rgb(204,204,204)')) %\>% add_trace(y = \~Unsupported2021, name = 'Unsupported', marker = list(color = 'rgb(300,000,01)')) %\>% layout(xaxis = list(title = "DMV States", tickangle = -45), yaxis = list(title = "Number of people killed"), margin = list(b = 100), barmode = 'group', title="Persons killed in 2021"))
+
+(plot2 = plot_ly(FARS, x = \~State, y = \~Male2018, type = 'bar', name = 'Male', marker = list(color = 'rgb(49,130,189)')) %\>% add_trace(y = \~Female2018, name = 'Female', marker = list(color = 'rgb(204,204,204)')) %\>% add_trace(y = \~Unsupported2018, name = 'Unsupported', marker = list(color = 'rgb(300,00,01)')) %\>% layout(xaxis = list(title = "DMV States", tickangle = -45), yaxis = list(title = "Number of people killed"), margin = list(b = 100), barmode = 'group', title="Persons killed in 2018"))
+
+(plot3 = plot_ly(FARS, x = \~State, y = \~Male1988, type = 'bar', name = 'Male', marker = list(color = 'rgb(49,130,189)')) %\>% add_trace(y = \~Female1988, name = 'Female', marker = list(color = 'rgb(204,204,204)')) %\>% add_trace(y = \~Unsupported, name = 'Unsupported', marker = list(color = 'rgb(300,00,01)')) %\>% layout(xaxis = list(title = "DMV States", tickangle = -45), yaxis = list(title = "Number of people killed"), margin = list(b = 100), barmode = 'group', title="Persons killed in 1988"))
+
+### Redesign 2
+
+plot4=plot_ly(FARS, x = \~State, type = 'bar', name = 'Male', y = \~Male2021, marker = list(color = 'blue')) %\>% add_trace(y = \~Female2021, name = 'Female', marker = list(color = 'pink')) %\>% add_trace(y = \~Unsupported2021, name = 'Unsupported', marker = list(color = 'Orange')) %\>% layout(title = "Persons Killed in 2021", xaxis = list(title = "DMV States"), yaxis = list(title = "Number of people killed"), barmode = 'stack')
+
+plot4
+
+plot5=plot_ly(FARS, x = \~State, type = 'bar', name = 'Male', y = \~Male2018, marker = list(color = 'blue')) %\>% add_trace(y = \~Female2018, name = 'Female', marker = list(color = 'pink')) %\>% add_trace(y = \~Unsupported2018, name = 'Unsupported', marker = list(color = 'Orange')) %\>% layout(title = "Persons Killed in 2018", xaxis = list(title = "DMV States"), yaxis = list(title = "Number of people killed"), barmode = 'stack')
+
+plot5
+
+plot6=plot_ly(FARS, x = \~State, type = 'bar', name = 'Male', y = \~Male1988, marker = list(color = 'blue')) %\>% add_trace(y = \~Female1988, name = 'Female', marker = list(color = 'pink')) %\>% add_trace(y = \~Unsupported, name = 'Unsupported', marker = list(color = 'Orange')) %\>% layout(title = "Persons Killed in 1988", xaxis = list(title = "DMV States"), yaxis = list(title = "Number of people killed"), barmode = 'stack')
+
+plot6
+
+## Data set
+
+I have created a Dataset with the help of the actual Dataset taken from the source. The reason to do this was to work from the base for the project.
+
+![](images/data%20set%20pic-01.jpg)
